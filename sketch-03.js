@@ -12,11 +12,11 @@ const sketch = ({ context, width, height }) => {
   // const colors = ["#c2c2c2", "#ffffff", "#000000"];
   const colors = ["#264653", "#2a9d8f", "#e9c46a", "#f4a261", "#e76f51"];
 
-  for (let i = 0; i < 40; i++) {
+  for (let i = 0; i < 200; i++) {
     const x = random.range(0, width);
     const y = random.range(0, height);
-    // const color = colors[Math.floor(Math.random() * colors.length)];
-    const color = "white";
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    // const color = "white";
     agents.push(new Agent(x, y, color));
   }
 
@@ -32,12 +32,13 @@ const sketch = ({ context, width, height }) => {
 
         const dist = agent.pos.getDistance(other.pos);
 
-        if (dist > 200) continue; // continue means skip what written below
-        context.lineWidth = math.mapRange(dist, 0, 200, 12, 1); // if dist = 0 , linWdith = 12 || if dist = 200, linewidth = 1
+        if (dist > 120) continue; // continue means skip what written below
+        context.lineWidth = math.mapRange(dist, 0, 200, 6, 1); // if dist = 0 , linWdith = 12 || if dist = 200, linewidth = 1
 
         context.beginPath();
         context.moveTo(agent.pos.x, agent.pos.y);
         context.lineTo(other.pos.x, other.pos.y);
+        context.strokeStyle = colors[j % 4];
         context.stroke();
       }
     }
@@ -69,7 +70,7 @@ class Agent {
   constructor(x, y, color) {
     this.pos = new Vector(x, y);
     this.vel = new Vector(random.range(-1, 1), random.range(-1, 1));
-    this.radius = random.range(4, 12);
+    this.radius = random.range(4, 8);
     this.color = color;
   }
 
